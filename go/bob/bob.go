@@ -5,6 +5,7 @@ import (
 	"unicode"
 )
 
+//Hey responds with fixed answer for a pattern of remarks
 func Hey(remark string) string {
 	trimmedRemark := strings.TrimSpace(remark)
 	if trimmedRemark == "" {

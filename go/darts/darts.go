@@ -11,6 +11,8 @@ const (
 	outerCirclePoints = 1
 	missedPoints = 0
 )
+
+//Score calculates the score of a dart given it's coordinates
 func Score(x float64, y float64) int {
 	dc := math.Hypot(x, y)
 	if dc <= innerCircleRadius {

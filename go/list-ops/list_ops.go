@@ -1,10 +1,12 @@
 package listops
 
+//IntList exposes a new type of array of integers with additional functions
 type IntList []int
 type binFunc func(x, y int) int
 type predFunc func(n int) bool
 type unaryFunc func(n int) int
 
+//Foldr reduces the list into result starting from right
 func (i IntList) Foldr(fn binFunc, result int) int {
 	reverse := i.Reverse()
 	for _, elem := range reverse {
@@ -13,6 +15,7 @@ func (i IntList) Foldr(fn binFunc, result int) int {
 	return result
 }
 
+//Foldl reduces the list into result starting from left 
 func (i IntList) Foldl(fn binFunc, result int) int {
 	for _, elem := range i {
 		result = fn(result, elem)
@@ -20,6 +23,7 @@ func (i IntList) Foldl(fn binFunc, result int) int {
 	return result
 }
 
+//Reverse returns a reversed list
 func (i IntList) Reverse() IntList {
 	reversed := make(IntList, i.Length())
 	for n, elem := range i {
@@ -28,6 +32,7 @@ func (i IntList) Reverse() IntList {
 	return reversed
 }
 
+//Filter returns a new list with elements matching the predicate
 func (i IntList) Filter(fn predFunc) IntList {
 	filtered := IntList{}
 	for _, elem := range i {
@@ -38,6 +43,7 @@ func (i IntList) Filter(fn predFunc) IntList {
 	return filtered
 }
 
+//Map applies given function to every element of the list
 func (i IntList) Map(fn unaryFunc) IntList {
 	result := make(IntList, i.Length())
 	for n, elem := range i {
@@ -46,6 +52,7 @@ func (i IntList) Map(fn unaryFunc) IntList {
 	return result
 }
 
+//Appends adds all elements of second list to the original list
 func (i IntList) Append(slice IntList) IntList {
 	length := i.Length()
 	result := make(IntList, length+slice.Length())
@@ -58,6 +65,7 @@ func (i IntList) Append(slice IntList) IntList {
 	return result
 }
 
+//Concat flattens and appends all elements of given lists
 func (i IntList) Concat(slice []IntList) IntList {
 	var result = i
 	for _, list := range slice {
@@ -66,6 +74,7 @@ func (i IntList) Concat(slice []IntList) IntList {
 	return result
 }
 
+//Length calculate the number of elements in given list
 func (i IntList) Length() int {
 	return len(i)
 }

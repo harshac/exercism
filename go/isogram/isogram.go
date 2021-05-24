@@ -2,6 +2,8 @@ package isogram
 
 import "strings"
 
+//IsIsogram determines if given string is an isogram
+//It ignores strings with multiple spaces and hyphens
 func IsIsogram(input string) bool {
 	runes := []rune(strings.ToLower(input))
 	for i, r := range runes {

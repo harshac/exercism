@@ -9,7 +9,6 @@ func Abbreviate(s string) string {
 	onlyLettersRegex := regexp.MustCompile("[^a-zA-Z']+")
 	processedString := onlyLettersRegex.ReplaceAllString(s, " ")
 
-	//var initials = regexp.MustCompile(`([\s\_\-][a-zA-Z])`)
 	space := regexp.MustCompile(`\s+`)
 	wws := space.ReplaceAllString(processedString, " ")
 

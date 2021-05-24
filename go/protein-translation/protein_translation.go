@@ -5,41 +5,44 @@ import (
 )
 
 const (
-	Stop          = "STOP"
-	Methionine    = "Methionine"
-	Phenylalanine = "Phenylalanine"
-	Leucine       = "Leucine"
-	Serine        = "Serine"
-	Tyrosine      = "Tyrosine"
-	Cysteine      = "Cysteine"
-	Tryptophan    = "Tryptophan"
+	stop          = "STOP"
+	methionine    = "Methionine"
+	phenylalanine = "Phenylalanine"
+	leucine       = "Leucine"
+	serine        = "Serine"
+	tyrosine      = "Tyrosine"
+	cysteine      = "Cysteine"
+	tryptophan    = "Tryptophan"
 )
 
 var codonToProtein = map[string]string{
-	"AUG": Methionine,
-	"UUU": Phenylalanine,
-	"UUC": Phenylalanine,
-	"UUA": Leucine,
-	"UUG": Leucine,
-	"UCU": Serine,
-	"UCC": Serine,
-	"UCA": Serine,
-	"UCG": Serine,
-	"UAU": Tyrosine,
-	"UAC": Tyrosine,
-	"UGC": Cysteine,
-	"UGU": Cysteine,
-	"UGG": Tryptophan,
-	"UAA": Stop,
-	"UAG": Stop,
-	"UGA": Stop,
+	"AUG": methionine,
+	"UUU": phenylalanine,
+	"UUC": phenylalanine,
+	"UUA": leucine,
+	"UUG": leucine,
+	"UCU": serine,
+	"UCC": serine,
+	"UCA": serine,
+	"UCG": serine,
+	"UAU": tyrosine,
+	"UAC": tyrosine,
+	"UGC": cysteine,
+	"UGU": cysteine,
+	"UGG": tryptophan,
+	"UAA": stop,
+	"UAG": stop,
+	"UGA": stop,
 }
 
 var (
-	ErrStop        = errors.New("stop")
-	ErrInvalidBase = errors.New("invalid codon")
+	//ErrStop is the error when stop sequence is found
+  ErrStop        = errors.New("stop")
+	//ErrInvalidBase is the error an invalid sequence is found
+  ErrInvalidBase = errors.New("invalid codon")
 )
 
+//FromRNA gives the list of proteins found in RNA
 func FromRNA(rna string) ([]string, error) {
 	var proteins []string
 	runes := []rune(rna)
@@ -57,12 +60,13 @@ func FromRNA(rna string) ([]string, error) {
 	return proteins, nil
 }
 
+//FromCodon returns the name of protein from the codon
 func FromCodon(c string) (string, error) {
 	protein, ok := codonToProtein[c]
 	if !ok {
 		return "", ErrInvalidBase
 	}
-	if protein == Stop {
+	if protein == stop {
 		return "", ErrStop
 	}
 	return protein, nil

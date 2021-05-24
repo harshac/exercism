@@ -2,6 +2,7 @@ package collatzconjecture
 
 import "errors"
 
+//CollatxConjecture calculates the steps required to reach 1
 func CollatzConjecture(input int) (int, error) {
 	if input <= 0 {
 		return 0, errors.New("invalid input")
