@@ -1,5 +1,6 @@
 package reverse
 
+//Reverse reverses the given the string
 func Reverse(input string) string {
 	var reverse string
 	runes := []rune(input)
