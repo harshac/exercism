@@ -1,7 +1,6 @@
 package luhn
 
 import (
-	"regexp"
 	"strconv"
 	"strings"
 )
@@ -9,10 +8,9 @@ import (
 //Valid determines whether a number is valid per the Luhn formula
 func Valid(input string) bool {
 	trimmedInput := strings.ReplaceAll(input, " ", "")
-	if !validInput(trimmedInput) {
+	if len(trimmedInput) <= 1 {
 		return false
 	}
-
 	numbers, err := luhn(trimmedInput)
 	if err != nil {
 		return false
@@ -45,15 +43,4 @@ func luhn(input string) ([]int, error) {
 		}
 	}
 	return luhnDigits, nil
-}
-
-func validInput(input string) bool {
-	if len(input) <= 1 {
-		return false
-	}
-	compile, err := regexp.Compile("^[0-9]+$")
-	if err != nil {
-		return false
-	}
-	return compile.Match([]byte(input))
 }
