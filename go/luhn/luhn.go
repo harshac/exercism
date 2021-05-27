@@ -7,35 +7,25 @@ import (
 
 //Valid determines whether a number is valid per the Luhn formula
 func Valid(input string) bool {
-	trimmedInput := strings.ReplaceAll(input, " ", "")
-	if len(trimmedInput) <= 1 {
+	input = strings.ReplaceAll(input, " ", "")
+	if len(input) <= 1 {
 		return false
 	}
-	digits := strings.Split(trimmedInput, "")
-	length := len(digits)
-	var applyLuhn bool
-	if length%2 == 0 {
-		applyLuhn = true
-	}
+	applyLuhn := len(input)%2 == 0
 	var sum int
-	for _, d := range digits {
-		digit, err := strconv.Atoi(d)
+	for _, d := range input {
+		digit, err := strconv.Atoi(string(d))
 		if err != nil {
 			return false
 		}
-		toBeAdded := digit
-
 		if applyLuhn {
-			double := digit * 2
-			toBeAdded = double
-			if double > 9 {
-				toBeAdded = double - 9
+			digit *= 2
+			if digit > 9 {
+				digit -= 9
 			}
-			applyLuhn = false
-		} else {
-			applyLuhn = true
 		}
-		sum += toBeAdded
+		sum += digit
+		applyLuhn = !applyLuhn
 	}
 	return sum%10 == 0
 }
