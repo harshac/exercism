@@ -11,36 +11,31 @@ func Valid(input string) bool {
 	if len(trimmedInput) <= 1 {
 		return false
 	}
-	numbers, err := luhn(trimmedInput)
-	if err != nil {
-		return false
+	digits := strings.Split(trimmedInput, "")
+	length := len(digits)
+	var applyLuhn bool
+	if length%2 == 0 {
+		applyLuhn = true
 	}
-
 	var sum int
-	for _, d := range numbers {
-		sum += d
+	for _, d := range digits {
+		digit, err := strconv.Atoi(d)
+		if err != nil {
+			return false
+		}
+		toBeAdded := digit
+
+		if applyLuhn {
+			double := digit * 2
+			toBeAdded = double
+			if double > 9 {
+				toBeAdded = double - 9
+			}
+			applyLuhn = false
+		} else {
+			applyLuhn = true
+		}
+		sum += toBeAdded
 	}
 	return sum%10 == 0
-}
-
-func luhn(input string) ([]int, error) {
-	digits := strings.Split(input, "")
-	length := len(digits)
-	luhnDigits := make([]int, length)
-	for i := length - 1; i >= 0; i-- {
-		digit, err := strconv.Atoi(digits[i])
-		if err != nil {
-			return nil, err
-		}
-		luhnDigits[i] = digit
-
-		if (length-i)%2 == 0 {
-			double := digit * 2
-			luhnDigits[i] = double
-			if double > 9 {
-				luhnDigits[i] = double - 9
-			}
-		}
-	}
-	return luhnDigits, nil
 }
