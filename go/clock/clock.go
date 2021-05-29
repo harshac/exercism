@@ -7,28 +7,29 @@ const (
 	hoursInADay  = 24
 )
 
-type clock struct {
+//Clock represents time without date
+type Clock struct {
 	hours int
 	mins  int
 }
 
-//String formats the time of the clock
-func (c clock) String() string {
+//String formats the time of the Clock
+func (c Clock) String() string {
 	return fmt.Sprintf("%02d:%02d", c.hours, c.mins)
 }
 
-//Add adds given mins to the clock
-func (c clock) Add(mins int) clock {
+//Add adds given mins to the Clock
+func (c Clock) Add(mins int) Clock {
 	return New(c.hours, c.mins+mins)
 }
 
-//Subtract deducts given mins from the clock
-func (c clock) Subtract(mins int) clock {
+//Subtract deducts given mins from the Clock
+func (c Clock) Subtract(mins int) Clock {
 	return New(c.hours, c.mins-mins)
 }
 
-//New creates a new clock without date
-func New(hours int, mins int) clock {
+//New creates a new Clock without date
+func New(hours int, mins int) Clock {
 	if mins < 0 {
 		hours += (mins / minsInAnHour) - 1
 		mins = minsInAnHour + (mins % minsInAnHour)
@@ -43,5 +44,5 @@ func New(hours int, mins int) clock {
 	if hours >= hoursInADay {
 		hours %= hoursInADay
 	}
-	return clock{hours: hours, mins: mins}
+	return Clock{hours: hours, mins: mins}
 }

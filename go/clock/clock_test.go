@@ -7,21 +7,21 @@ import (
 	"testing"
 )
 
-// clock API:
+// Clock API:
 //
-// type clock                      // define the clock type
-// New(hour, minute int) clock     // a "constructor"
-// (clock) String() string         // a "stringer"
-// (clock) Add(minutes int) clock
-// (clock) Subtract(minutes int) clock
+// type Clock                      // define the Clock type
+// New(hour, minute int) Clock     // a "constructor"
+// (Clock) String() string         // a "stringer"
+// (Clock) Add(minutes int) Clock
+// (Clock) Subtract(minutes int) Clock
 //
 // To satisfy the README requirement about clocks being equal, values of
-// your clock type need to work with the == operator. This means that if your
+// your Clock type need to work with the == operator. This means that if your
 // New function returns a pointer rather than a value, your clocks will
 // probably not work with ==.
 //
 // While the time.Time type in the standard library (https://golang.org/pkg/time/#Time)
-// doesn't necessarily need to be used as a basis for your clock type, it might
+// doesn't necessarily need to be used as a basis for your Clock type, it might
 // help to look at how constructors there (Date and Now) return values rather
 // than pointers. Note also how most time.Time methods have value receivers
 // rather than pointer receivers.
@@ -118,7 +118,7 @@ func TestAddAndCompare(t *testing.T) {
 	clock1 := New(15, 45).Add(16)
 	clock2 := New(16, 1)
 	if !reflect.DeepEqual(clock1, clock2) {
-		t.Errorf("clock.New(15,45).Add(16) differs from clock.New(16,1)")
+		t.Errorf("Clock.New(15,45).Add(16) differs from Clock.New(16,1)")
 	}
 }
 
@@ -126,7 +126,7 @@ func TestSubtractAndCompare(t *testing.T) {
 	clock1 := New(16, 1).Subtract(16)
 	clock2 := New(15, 45)
 	if !reflect.DeepEqual(clock1, clock2) {
-		t.Errorf("clock.New(16,1).Subtract(16) differs from clock.New(15,45)")
+		t.Errorf("Clock.New(16,1).Subtract(16) differs from Clock.New(15,45)")
 	}
 }
 

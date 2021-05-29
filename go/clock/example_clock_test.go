@@ -3,7 +3,7 @@ package clock
 import "fmt"
 
 func ExampleClock_new() {
-	// a new clock
+	// a new Clock
 	clock1 := New(10, 30)
 	fmt.Println(clock1.String())
 
@@ -11,7 +11,7 @@ func ExampleClock_new() {
 }
 
 func ExampleClock_Add() {
-	// create a clock
+	// create a Clock
 	clock := New(10, 30)
 
 	// add 30 minutes to it
@@ -22,7 +22,7 @@ func ExampleClock_Add() {
 }
 
 func ExampleClock_Subtract() {
-	// create a clock
+	// create a Clock
 	clock := New(10, 30)
 
 	// subtract an hour and a half from it
@@ -33,16 +33,16 @@ func ExampleClock_Subtract() {
 }
 
 func ExampleClock_compare() {
-	// a new clock
+	// a new Clock
 	clock1 := New(10, 30)
 
-	// a second clock, same as the first
+	// a second Clock, same as the first
 	clock2 := New(10, 30)
 
 	// are the clocks equal?
 	fmt.Println(clock2 == clock1)
 
-	// change the second clock
+	// change the second Clock
 	clock2 = clock2.Add(30)
 
 	// are the clocks equal now?
