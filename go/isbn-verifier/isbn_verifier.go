@@ -10,11 +10,14 @@ func IsValidISBN(isbn string) bool {
 	}
 	var sum int
 	for i, d := range isbn {
-		val := int(d - '0')
-		if d == 'X' && i == len(isbn)-1 {
-			val = 10
-		}
-		sum += (10 - i) * val
+		sum += (10 - i) * digit(d, i)
 	}
 	return sum%11 == 0
+}
+
+func digit(d rune, index int) int {
+	if d == 'X' && index == 9 {
+		return 10
+	}
+	return int(d - '0')
 }
