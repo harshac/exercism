@@ -1,45 +1,27 @@
 package secret
 
-import (
-	"math"
-)
-
-var code = map[uint]string{
-	1:     "wink",
-	10:    "double blink",
-	100:   "close your eyes",
-	1000:  "jump",
-	10000: reverseCommand,
+var codes = map[uint]string{
+	1: "wink",
+	2: "double blink",
+	4: "close your eyes",
+	8: "jump",
 }
 
-const reverseCommand = "reverse"
+const reverseCommand = 16
 
+//Handshake converts decimal number to the appropriate sequence of events for a secret handshake
 func Handshake(num uint) []string {
-	var codes []string
-	for i, u := range toReversedBinary(num) {
-		if u == 1 {
-			code := code[key(i)]
-			if code == reverseCommand {
-				codes = reverse(codes)
-				continue
-			}
-			codes = append(codes, code)
+	var bases = []uint{1, 2, 4, 8}
+	var events []string
+	for _, k := range bases {
+		if num&k == k && num&k != reverseCommand {
+			events = append(events, codes[k])
 		}
 	}
-	return codes
-}
-
-func toReversedBinary(num uint) []uint {
-	var output []uint
-	for num > 0 {
-		output = append(output, num%2)
-		num = num / 2
+	if num&reverseCommand == reverseCommand {
+		return reverse(events)
 	}
-	return output
-}
-
-func key(position int) uint {
-	return uint(math.Pow(float64(10), float64(position)))
+	return events
 }
 
 func reverse(codes []string) []string {

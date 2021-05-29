@@ -10,10 +10,10 @@ type secretHandshakeTest struct {
 }
 
 var tests = []secretHandshakeTest{
-	//{1, []string{"wink"}},
-	//{2, []string{"double blink"}},
-	//{4, []string{"close your eyes"}},
-	//{8, []string{"jump"}},
+	{1, []string{"wink"}},
+	{2, []string{"double blink"}},
+	{4, []string{"close your eyes"}},
+	{8, []string{"jump"}},
 	{3, []string{"wink", "double blink"}},
 	{19, []string{"double blink", "wink"}},
 	{24, []string{"jump"}},
