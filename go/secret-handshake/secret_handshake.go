@@ -16,10 +16,9 @@ const reverseCommand = "reverse"
 
 func Handshake(num uint) []string {
 	var codes []string
-	binary := toReversedBinary(num)
-	for i, u := range binary {
+	for i, u := range toReversedBinary(num) {
 		if u == 1 {
-			code := code[toBinaryUint(u, i)]
+			code := code[key(i)]
 			if code == reverseCommand {
 				codes = reverse(codes)
 				continue
@@ -39,15 +38,14 @@ func toReversedBinary(num uint) []uint {
 	return output
 }
 
-func toBinaryUint(digit uint, position int) uint {
-	return digit * uint(math.Pow(float64(10), float64(position)))
+func key(position int) uint {
+	return uint(math.Pow(float64(10), float64(position)))
 }
 
 func reverse(codes []string) []string {
-	len := len(codes)
-	var reversed = make([]string, len)
-	for i, code := range codes {
-		reversed[len-1-i] = code
+	var reversed []string
+	for _, code := range codes {
+		reversed = append([]string{code}, reversed...)
 	}
 	return reversed
 }
